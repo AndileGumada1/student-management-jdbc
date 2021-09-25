@@ -1,6 +1,8 @@
 package com.andile.student.model;
 
-
+/**
+* This is a Student model to be persistent in the database
+**/
 public class Student {
 
     private long id;

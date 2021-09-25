@@ -17,8 +17,8 @@ public class StudentDAO {
    private final String password = "root";
 
     /**
-    * SQL STATIC QUERIES FOR SELECTING ALL STUDENTS
-     *
+     * SQL STATIC QUERIES FOR SELECTING ALL STUDENTS, INSERT A NEW STUDENT DELETE
+     * AND UPDATING A STUDENT RECORD IN THE DATABASE.
     **/
     private static final String SELECT_ALL_STUDENTS_QUERY = "select * from student";
 

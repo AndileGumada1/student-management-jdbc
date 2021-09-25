@@ -1,6 +1,5 @@
 package com.andile.student;
 
-
 import com.andile.student.database.StudentDAO;
 import com.andile.student.model.Student;
 
