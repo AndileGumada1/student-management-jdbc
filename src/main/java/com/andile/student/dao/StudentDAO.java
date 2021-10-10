@@ -1,4 +1,4 @@
-package com.andile.student.database;
+package com.andile.student.dao;
 
 import com.andile.student.model.Student;
 
@@ -6,28 +6,15 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 /**
-* This is a Java Data Access Object class which provides the CRUD Database operationa
+* This is a Java Data Access Object class which provides the CRUD Database operations
 * for the student table
 **/
 public class StudentDAO {
 
     //Database properties username , password and the database URL
-   private final String dbURL = "jdbc:mysql://localhost:3306/studentdb";
+   private final String dbURL = "jdbc:mysql://localhost:3306/student_db";
    private final String username = "root";
    private final String password = "root";
-
-    /**
-     * SQL STATIC QUERIES FOR SELECTING ALL STUDENTS, INSERT A NEW STUDENT DELETE
-     * AND UPDATING A STUDENT RECORD IN THE DATABASE.
-    **/
-    private static final String SELECT_ALL_STUDENTS_QUERY = "select * from student";
-
-    private static final String INSERT_STUDENT_QUERY = "insert into student "+
-            "(id,name,address,mobile,email)VALUES " +
-            "(?,?,?,?,?)";
-    private static final String DELETE_STUDENT_QUERY = "delete from student where id = ?";
-
-    private static final String UPDATE_STUDENT_QUERY = "update student set name=?,address=?,mobile =?,email = ? where id = ?";
 
     //empty constructor to instantiate the StudentDAO object
     public StudentDAO(){
@@ -52,6 +39,8 @@ public class StudentDAO {
      * @return List of students
     * */
     public  List<Student> getStudentList(){
+        String SELECT_ALL_STUDENTS_QUERY = "select * from student";
+
         List<Student> studentList = new ArrayList<>();
         try (//try with resource statement will auto close connection
             Connection connection = getConnection();
@@ -83,7 +72,9 @@ public class StudentDAO {
      * @param student represents the student object to be saved in the database
      **/
     public void insertStudent(Student student){
-
+       String INSERT_STUDENT_QUERY = "insert into student "+
+                "(id,name,address,mobile,email)VALUES " +
+                "(?,?,?,?,?)";
         try (
             //get the database connection from the connection object
             Connection connection = getConnection();
@@ -115,6 +106,8 @@ public class StudentDAO {
     public boolean deleteStudent(Long id) throws SQLException {
         boolean rowDeleted;
 
+
+       String DELETE_STUDENT_QUERY = "delete from student where id = ?";
         try ( //try with resource statement will auto close connection
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_STUDENT_QUERY);){
@@ -131,6 +124,8 @@ public class StudentDAO {
      **/
     public boolean updateStudent(Student student) throws SQLException {
         boolean rowUpdated;
+
+        String UPDATE_STUDENT_QUERY = "update student set name=?,address=?,mobile =?,email = ? where id = ?";
 
         try (Connection connection = getConnection();//try with resource statement will auto close connection
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_STUDENT_QUERY);){

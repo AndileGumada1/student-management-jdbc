@@ -1,9 +1,12 @@
 package com.andile.student.model;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
 * This is a Student model to be persistent in the database
 **/
-public class Student {
+public class Student implements Serializable {
 
     private long id;
     private String name;
@@ -11,23 +14,14 @@ public class Student {
     private String mobile;
     private String email;
 
-    public Student(long id, String name, String address, String mobile, String email) {
-        this.id = id;
+    public Student( String name, String address, String mobile, String email) {
         this.name = name;
         this.address = address;
         this.mobile = mobile;
         this.email = email;
     }
-    public Student(){
-
-    }
-
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -60,5 +54,18 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student)) return false;
+        Student student = (Student) o;
+        return getId() == student.getId() && Objects.equals(getName(), student.getName()) && Objects.equals(getAddress(), student.getAddress()) && Objects.equals(getMobile(), student.getMobile()) && Objects.equals(getEmail(), student.getEmail());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getAddress(), getMobile(), getEmail());
     }
 }
